@@ -4,6 +4,8 @@ import com.portfolio.taejuneng.dto.RequestDto;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -46,4 +48,12 @@ public interface RequestMapper {
         WHERE id = #{id}
     """)
     RequestDto findById(Long id);
+
+    @Update("""
+    UPDATE requests
+    SET status = #{status}
+    WHERE id = #{id}
+""")
+    void updateStatus(@Param("id") Long id, @Param("status") String status);
+
 }

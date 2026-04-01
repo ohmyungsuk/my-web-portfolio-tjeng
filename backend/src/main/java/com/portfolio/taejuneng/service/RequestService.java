@@ -26,4 +26,7 @@ public class RequestService {
     public RequestDto getRequestDetail(Long id) {
         return requestMapper.findById(id);
     }
+    public void updateRequestStatus(Long id, String status) {
+        requestMapper.updateStatus(id, status);
+    }
 }
