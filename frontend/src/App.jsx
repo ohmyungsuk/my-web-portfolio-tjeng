@@ -1,10 +1,10 @@
 import Login from "./pages/Login";
-import RequestCreatePage from "./pages/RequestCreatePage";
+import MyRequestsPage from "./pages/MyRequestsPage";
 
 function App() {
   const loginUser = localStorage.getItem("loginUser");
 
-  return loginUser ? <RequestCreatePage /> : <Login />;
+  return loginUser ? <MyRequestsPage /> : <Login />;
 }
 
 export default App;
