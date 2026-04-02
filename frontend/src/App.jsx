@@ -1,18 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import MyRequestsPage from "./pages/MyRequestsPage";
-import RequestDetailPage from "./pages/RequestDetailPage";
+import Login from "./pages/Login";
+import RequestCreatePage from "./pages/RequestCreatePage";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/my-requests" element={<MyRequestsPage />} />
-        <Route path="/request-detail" element={<RequestDetailPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  const loginUser = localStorage.getItem("loginUser");
+
+  return loginUser ? <RequestCreatePage /> : <Login />;
 }
 
 export default App;

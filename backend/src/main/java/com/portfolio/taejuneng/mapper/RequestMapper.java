@@ -13,9 +13,9 @@ import java.util.List;
 public interface RequestMapper {
 
     @Insert("""
-        INSERT INTO requests (user_id, title, category, location, content, status)
-        VALUES (#{userId}, #{title}, #{category}, #{location}, #{content}, #{status})
-    """)
+    INSERT INTO requests (user_id, title, category, location, content, status)
+    VALUES (#{userId}, #{title}, #{category}, #{location}, #{content}, #{status})
+""")
     void insertRequest(RequestDto dto);
 
     @Select("""

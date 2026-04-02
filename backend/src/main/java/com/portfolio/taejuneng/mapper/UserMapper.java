@@ -11,14 +11,13 @@ public interface UserMapper {
     @Insert("""
         INSERT INTO users (username, password, name)
         VALUES (#{username}, #{password}, #{name})
-    """)
+        """)
     void insertUser(UserSignupDto dto);
 
     @Select("""
-        SELECT COUNT(*)
+        SELECT id, username, password, name, role
         FROM users
         WHERE username = #{username}
-        AND password = #{password}
-    """)
-    int login(UserSignupDto dto);
+        """)
+    UserSignupDto findByUsername(String username);
 }
