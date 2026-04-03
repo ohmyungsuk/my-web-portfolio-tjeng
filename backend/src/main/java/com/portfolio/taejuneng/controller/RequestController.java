@@ -42,6 +42,11 @@ public class RequestController {
         return requestService.getMyRequests(userId);
     }
 
+    @GetMapping("/requests/assigned")
+    public List<RequestDto> getAssignedRequests(@RequestParam Long assignedUserId) {
+        return requestService.getAssignedRequests(assignedUserId);
+    }
+
     @GetMapping("/requests/detail")
     public RequestDto getRequestDetail(@RequestParam Long id) {
         return requestService.getRequestById(id);

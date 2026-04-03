@@ -26,6 +26,11 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public List<RequestDto> getAssignedRequests(Long assignedUserId) {
+        return requestMapper.findByAssignedUserId(assignedUserId);
+    }
+
+    @Override
     public RequestDto getRequestById(Long id) {
         return requestMapper.findById(id);
     }

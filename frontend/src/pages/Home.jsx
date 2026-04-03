@@ -1,4 +1,10 @@
-function Home({ onGoToCreate, onGoToMyRequests, onGoToAllRequests, onLogout }) {
+function Home({
+  onGoToCreate,
+  onGoToMyRequests,
+  onGoToAllRequests,
+  onGoToAssignedRequests,
+  onLogout,
+}) {
   const savedUser = localStorage.getItem("loginUser");
   const loginUser = savedUser ? JSON.parse(savedUser) : null;
 
@@ -44,6 +50,14 @@ function Home({ onGoToCreate, onGoToMyRequests, onGoToAllRequests, onLogout }) {
             onClick={onGoToAllRequests}
           >
             전체 요청 목록
+          </button>
+
+          <button
+            type="button"
+            className="signup-button"
+            onClick={onGoToAssignedRequests}
+          >
+            내가 맡은 작업
           </button>
 
           <button

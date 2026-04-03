@@ -6,12 +6,14 @@ import Home from "./pages/Home";
 import RequestCreatePage from "./pages/RequestCreatePage";
 import MyRequestsPage from "./pages/MyRequestsPage";
 import AllRequestsPage from "./pages/AllRequestsPage";
+import MyAssignedRequestsPage from "./pages/MyAssignedRequestsPage";
 import RequestDetailPage from "./pages/RequestDetailPage";
 
 function App() {
   const loginUser = localStorage.getItem("loginUser");
   const [currentPage, setCurrentPage] = useState("landing");
   const [selectedRequest, setSelectedRequest] = useState(null);
+  const [previousPage, setPreviousPage] = useState("home");
 
   useEffect(() => {
     if (
@@ -67,6 +69,7 @@ function App() {
         onGoHome={() => setCurrentPage("home")}
         onClickRequest={(request) => {
           setSelectedRequest(request);
+          setPreviousPage("myRequests");
           setCurrentPage("requestDetail");
         }}
       />
@@ -79,6 +82,20 @@ function App() {
         onGoHome={() => setCurrentPage("home")}
         onClickRequest={(request) => {
           setSelectedRequest(request);
+          setPreviousPage("allRequests");
+          setCurrentPage("requestDetail");
+        }}
+      />
+    );
+  }
+
+  if (currentPage === "assignedRequests") {
+    return (
+      <MyAssignedRequestsPage
+        onGoHome={() => setCurrentPage("home")}
+        onClickRequest={(request) => {
+          setSelectedRequest(request);
+          setPreviousPage("assignedRequests");
           setCurrentPage("requestDetail");
         }}
       />
@@ -89,7 +106,7 @@ function App() {
     return (
       <RequestDetailPage
         request={selectedRequest}
-        onGoBack={() => setCurrentPage("allRequests")}
+        onGoBack={() => setCurrentPage(previousPage)}
         onGoHome={() => setCurrentPage("home")}
       />
     );
@@ -100,6 +117,7 @@ function App() {
       onGoToCreate={() => setCurrentPage("create")}
       onGoToMyRequests={() => setCurrentPage("myRequests")}
       onGoToAllRequests={() => setCurrentPage("allRequests")}
+      onGoToAssignedRequests={() => setCurrentPage("assignedRequests")}
       onLogout={handleLogout}
     />
   );

@@ -10,6 +10,8 @@ public interface RequestService {
 
     List<RequestDto> getMyRequests(Long userId);
 
+    List<RequestDto> getAssignedRequests(Long assignedUserId);
+
     RequestDto getRequestById(Long id);
 
     void updateStatus(Long id, String status);

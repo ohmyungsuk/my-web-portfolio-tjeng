@@ -63,6 +63,23 @@ public interface RequestMapper {
             assigned_user_id AS assignedUserId,
             created_at AS createdAt
         FROM requests
+        WHERE assigned_user_id = #{assignedUserId}
+        ORDER BY id DESC
+    """)
+    List<RequestDto> findByAssignedUserId(Long assignedUserId);
+
+    @Select("""
+        SELECT
+            id,
+            user_id AS userId,
+            title,
+            category,
+            location,
+            content,
+            status,
+            assigned_user_id AS assignedUserId,
+            created_at AS createdAt
+        FROM requests
         WHERE id = #{id}
     """)
     RequestDto findById(Long id);
