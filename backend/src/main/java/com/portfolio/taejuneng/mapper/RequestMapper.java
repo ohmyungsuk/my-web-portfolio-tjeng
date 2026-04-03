@@ -36,67 +36,79 @@ public interface RequestMapper {
 
     @Select("""
         SELECT
-            id,
-            user_id AS userId,
-            title,
-            category,
-            location,
-            content,
-            status,
-            assigned_user_id AS assignedUserId,
-            created_at AS createdAt
-        FROM requests
-        WHERE user_id = #{userId}
-        ORDER BY id DESC
+            r.id,
+            r.user_id AS userId,
+            r.title,
+            r.category,
+            r.location,
+            r.content,
+            r.status,
+            r.assigned_user_id AS assignedUserId,
+            u.username AS assignedUsername,
+            r.created_at AS createdAt
+        FROM requests r
+        LEFT JOIN users u
+          ON r.assigned_user_id = u.id
+        WHERE r.user_id = #{userId}
+        ORDER BY r.id DESC
     """)
     List<RequestDto> findByUserId(Long userId);
 
     @Select("""
         SELECT
-            id,
-            user_id AS userId,
-            title,
-            category,
-            location,
-            content,
-            status,
-            assigned_user_id AS assignedUserId,
-            created_at AS createdAt
-        FROM requests
-        WHERE assigned_user_id = #{assignedUserId}
-        ORDER BY id DESC
+            r.id,
+            r.user_id AS userId,
+            r.title,
+            r.category,
+            r.location,
+            r.content,
+            r.status,
+            r.assigned_user_id AS assignedUserId,
+            u.username AS assignedUsername,
+            r.created_at AS createdAt
+        FROM requests r
+        LEFT JOIN users u
+          ON r.assigned_user_id = u.id
+        WHERE r.assigned_user_id = #{assignedUserId}
+        ORDER BY r.id DESC
     """)
     List<RequestDto> findByAssignedUserId(Long assignedUserId);
 
     @Select("""
         SELECT
-            id,
-            user_id AS userId,
-            title,
-            category,
-            location,
-            content,
-            status,
-            assigned_user_id AS assignedUserId,
-            created_at AS createdAt
-        FROM requests
-        WHERE id = #{id}
+            r.id,
+            r.user_id AS userId,
+            r.title,
+            r.category,
+            r.location,
+            r.content,
+            r.status,
+            r.assigned_user_id AS assignedUserId,
+            u.username AS assignedUsername,
+            r.created_at AS createdAt
+        FROM requests r
+        LEFT JOIN users u
+          ON r.assigned_user_id = u.id
+        WHERE r.id = #{id}
     """)
     RequestDto findById(Long id);
 
     @Select("""
         SELECT
-            id,
-            user_id AS userId,
-            title,
-            category,
-            location,
-            content,
-            status,
-            assigned_user_id AS assignedUserId,
-            created_at AS createdAt
-        FROM requests
-        ORDER BY id DESC
+            r.id,
+            r.user_id AS userId,
+            r.title,
+            r.category,
+            r.location,
+            r.content,
+            r.status,
+            r.assigned_user_id AS assignedUserId,
+            u.username AS assignedUsername,
+            r.created_at AS createdAt
+        FROM requests r
+        LEFT JOIN users u
+          ON r.assigned_user_id = u.id
+        ORDER BY r.id DESC
     """)
     List<RequestDto> findAll();
 

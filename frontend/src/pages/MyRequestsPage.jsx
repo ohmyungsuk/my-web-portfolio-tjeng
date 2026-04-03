@@ -13,9 +13,7 @@ function MyRequestsPage({ onGoHome, onClickRequest }) {
       return;
     }
 
-    const userId = loginUser.id;
-
-    fetch(`http://localhost:8080/requests/my?userId=${userId}`)
+    fetch(`http://localhost:8080/requests/my?userId=${loginUser.id}`)
       .then((response) => response.json())
       .then((data) => {
         setRequests(data);
@@ -28,7 +26,7 @@ function MyRequestsPage({ onGoHome, onClickRequest }) {
 
   return (
     <div className="signup-page">
-      <div className="signup-card" style={{ maxWidth: "700px" }}>
+      <div className="signup-card" style={{ maxWidth: "800px" }}>
         <div className="signup-header">
           <h1 className="logo">FixFlow</h1>
           <p className="subtitle">내가 등록한 요청 목록</p>
@@ -47,10 +45,7 @@ function MyRequestsPage({ onGoHome, onClickRequest }) {
                 <div
                   key={request.id}
                   className="request-card"
-                  onClick={() => {
-                    console.log("카드 클릭됨", request);
-                    onClickRequest(request);
-                  }}
+                  onClick={() => onClickRequest(request)}
                   style={{
                     border: "1px solid #d1d5db",
                     borderRadius: "12px",
@@ -64,6 +59,12 @@ function MyRequestsPage({ onGoHome, onClickRequest }) {
                   <p>장소: {request.location}</p>
                   <p>내용: {request.content}</p>
                   <p>상태: {request.status}</p>
+                  <p>
+                    담당자:{" "}
+                    {request.assignedUsername
+                      ? request.assignedUsername
+                      : "아직 없음"}
+                  </p>
                 </div>
               ))}
             </div>

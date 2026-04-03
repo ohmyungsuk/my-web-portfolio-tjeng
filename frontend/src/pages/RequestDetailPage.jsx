@@ -43,11 +43,17 @@ function RequestDetailPage({ request, onGoBack, onGoHome }) {
   }
 
   const isMyRequest = loginUser && detail.userId === loginUser.id;
+
   const canAccept =
     loginUser &&
     !isMyRequest &&
     detail.status === "모집중" &&
     !detail.assignedUserId;
+
+  const canComplete =
+    loginUser &&
+    detail.assignedUserId === loginUser.id &&
+    detail.status === "진행중";
 
   const handleAccept = async () => {
     try {
@@ -61,10 +67,13 @@ function RequestDetailPage({ request, onGoBack, onGoHome }) {
       const resultText = await response.text();
 
       if (response.ok && resultText.includes("성공")) {
+        const nextUsername = loginUser.username || `회원 ${loginUser.id}`;
+
         setDetail({
           ...detail,
           status: "진행중",
           assignedUserId: loginUser.id,
+          assignedUsername: nextUsername,
         });
         setMessage("요청 수락 성공!");
       } else {
@@ -73,6 +82,32 @@ function RequestDetailPage({ request, onGoBack, onGoHome }) {
     } catch (error) {
       console.error("요청 수락 실패:", error);
       setMessage("요청 수락 중 오류가 발생했습니다.");
+    }
+  };
+
+  const handleComplete = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/requests/status?id=${detail.id}&status=완료됨`,
+        {
+          method: "PUT",
+        }
+      );
+
+      const resultText = await response.text();
+
+      if (response.ok && resultText.includes("성공")) {
+        setDetail({
+          ...detail,
+          status: "완료됨",
+        });
+        setMessage("작업 완료 처리 성공!");
+      } else {
+        setMessage(resultText);
+      }
+    } catch (error) {
+      console.error("완료 처리 실패:", error);
+      setMessage("완료 처리 중 오류가 발생했습니다.");
     }
   };
 
@@ -126,23 +161,11 @@ function RequestDetailPage({ request, onGoBack, onGoHome }) {
             <div className="input">{detail.status}</div>
           </div>
 
-          {/* 확인용 디버그 */}
-          <div
-            style={{
-              border: "1px solid #d1d5db",
-              borderRadius: "10px",
-              padding: "12px",
-              fontSize: "14px",
-              backgroundColor: "#f9fafb",
-              marginBottom: "12px",
-            }}
-          >
-            <p>내 로그인 ID: {loginUser ? loginUser.id : "없음"}</p>
-            <p>글 작성자 ID: {detail.userId}</p>
-            <p>현재 상태: {detail.status}</p>
-            <p>assignedUserId: {String(detail.assignedUserId)}</p>
-            <p>내 글 여부: {String(isMyRequest)}</p>
-            <p>수락 가능 여부: {String(canAccept)}</p>
+          <div className="input-group">
+            <label>담당자</label>
+            <div className="input">
+              {detail.assignedUsername ? detail.assignedUsername : "아직 없음"}
+            </div>
           </div>
 
           {canAccept && (
@@ -152,6 +175,16 @@ function RequestDetailPage({ request, onGoBack, onGoHome }) {
               onClick={handleAccept}
             >
               요청 수락하기
+            </button>
+          )}
+
+          {canComplete && (
+            <button
+              type="button"
+              className="signup-button"
+              onClick={handleComplete}
+            >
+              완료 처리하기
             </button>
           )}
 

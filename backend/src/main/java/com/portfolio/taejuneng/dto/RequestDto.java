@@ -12,6 +12,7 @@ public class RequestDto {
     private String content;
     private String status;
     private Long assignedUserId;
+    private String assignedUsername;
     private LocalDateTime createdAt;
 
     public Long getId() {
@@ -76,6 +77,14 @@ public class RequestDto {
 
     public void setAssignedUserId(Long assignedUserId) {
         this.assignedUserId = assignedUserId;
+    }
+
+    public String getAssignedUsername() {
+        return assignedUsername;
+    }
+
+    public void setAssignedUsername(String assignedUsername) {
+        this.assignedUsername = assignedUsername;
     }
 
     public LocalDateTime getCreatedAt() {

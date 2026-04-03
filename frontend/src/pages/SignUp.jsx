@@ -1,18 +1,29 @@
 import { useState } from "react";
 import "../index.css";
 
-function SignUp() {
+function Signup({ onGoLogin }) {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!userId || !password || !passwordCheck || !name) {
+    if (
+      !userId ||
+      !password ||
+      !passwordCheck ||
+      !name ||
+      !nickname ||
+      !email ||
+      !phoneNumber
+    ) {
       setMessage("모든 칸을 입력해주세요.");
       return;
     }
@@ -35,6 +46,9 @@ function SignUp() {
           username: userId,
           password: password,
           name: name,
+          nickname: nickname,
+          email: email,
+          phoneNumber: phoneNumber,
         }),
       });
 
@@ -46,6 +60,9 @@ function SignUp() {
         setPassword("");
         setPasswordCheck("");
         setName("");
+        setNickname("");
+        setEmail("");
+        setPhoneNumber("");
       } else {
         setMessage("회원가입 실패: " + data);
       }
@@ -108,15 +125,53 @@ function SignUp() {
             />
           </div>
 
+          <div className="input-group">
+            <label>닉네임</label>
+            <input
+              type="text"
+              placeholder="닉네임을 입력하세요"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+            />
+          </div>
+
+          <div className="input-group">
+            <label>이메일</label>
+            <input
+              type="email"
+              placeholder="이메일을 입력하세요"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="input-group">
+            <label>휴대폰번호</label>
+            <input
+              type="text"
+              placeholder="휴대폰번호를 입력하세요"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          </div>
+
           <button type="submit" className="signup-button" disabled={isLoading}>
             {isLoading ? "가입 중..." : "가입하기"}
           </button>
 
           {message && <p className="message">{message}</p>}
+
+          <button
+            type="button"
+            className="signup-button"
+            onClick={onGoLogin}
+          >
+            로그인으로 가기
+          </button>
         </form>
       </div>
     </div>
   );
 }
 
-export default SignUp;
+export default Signup;

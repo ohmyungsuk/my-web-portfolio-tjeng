@@ -1,84 +1,92 @@
-import "../index.css";
-
 function LandingPage({ onGoLogin, onGoSignup, onGoCreate, isLoggedIn }) {
-  const scrollToIntro = () => {
-    const target = document.getElementById("service-intro");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
+  const moveToIntro = () => {
+    const introSection = document.getElementById("service-intro");
+    if (introSection) {
+      introSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const goTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const menuStyle = {
+    cursor: "pointer",
+    fontSize: "15px",
+    fontWeight: "500",
+    color: "#0f172a",
   };
 
   return (
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#eef2f8",
+        backgroundColor: "#f1f5f9",
+        fontFamily: "Arial, sans-serif",
+        color: "#0f172a",
       }}
     >
+      {/* 상단 메뉴 */}
       <header
         style={{
           width: "100%",
           backgroundColor: "#ffffff",
-          borderBottom: "1px solid #e5e7eb",
+          borderBottom: "1px solid #e2e8f0",
         }}
       >
         <div
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
-            height: "72px",
+            padding: "18px 32px",
             display: "flex",
-            alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 24px",
+            alignItems: "center",
           }}
         >
-          <h1
+          <div
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             style={{
-              margin: 0,
-              fontSize: "28px",
-              fontWeight: "800",
+              fontSize: "24px",
+              fontWeight: "700",
               color: "#2563eb",
+              cursor: "pointer",
+              letterSpacing: "-0.5px",
             }}
           >
             FixFlow
-          </h1>
+          </div>
 
           <nav
             style={{
               display: "flex",
-              gap: "28px",
               alignItems: "center",
+              gap: "28px",
             }}
           >
-            <button type="button" onClick={goTop} style={menuButtonStyle}>
+            <span
+              style={menuStyle}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
               홈
-            </button>
+            </span>
 
-            <button
-              type="button"
-              onClick={scrollToIntro}
-              style={menuButtonStyle}
-            >
+            <span style={menuStyle} onClick={moveToIntro}>
               서비스 소개
-            </button>
+            </span>
 
-            <button
-              type="button"
-              onClick={onGoLogin}
-              style={menuButtonStyle}
-            >
+            <span style={menuStyle} onClick={onGoLogin}>
               로그인
-            </button>
+            </span>
 
             <button
-              type="button"
               onClick={onGoSignup}
-              style={menuButtonStyle}
+              style={{
+                backgroundColor: "#2563eb",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "10px",
+                padding: "10px 16px",
+                fontSize: "14px",
+                fontWeight: "700",
+                cursor: "pointer",
+              }}
             >
               회원가입
             </button>
@@ -86,89 +94,100 @@ function LandingPage({ onGoLogin, onGoSignup, onGoCreate, isLoggedIn }) {
         </div>
       </header>
 
+      {/* 메인 영역 */}
       <section
         style={{
           maxWidth: "1200px",
           margin: "0 auto",
-          padding: "80px 24px 120px 24px",
-          display: "grid",
-          gridTemplateColumns: "1.4fr 0.9fr",
-          gap: "48px",
+          padding: "64px 32px 90px",
+          display: "flex",
+          justifyContent: "space-between",
           alignItems: "center",
+          gap: "60px",
+          flexWrap: "wrap",
         }}
       >
-        <div>
+        {/* 왼쪽 */}
+        <div style={{ flex: 1, minWidth: "320px" }}>
           <div
             style={{
               display: "inline-block",
               backgroundColor: "#dbeafe",
               color: "#2563eb",
-              padding: "10px 18px",
-              borderRadius: "999px",
-              fontSize: "16px",
+              fontSize: "14px",
               fontWeight: "700",
+              padding: "12px 20px",
+              borderRadius: "999px",
               marginBottom: "28px",
             }}
           >
             회원제 유지보수 요청 플랫폼
           </div>
 
-          <h2
+          <h1
             style={{
-              fontSize: "62px",
-              lineHeight: "1.18",
+              fontSize: "42px",
+              lineHeight: "1.3",
               fontWeight: "800",
-              color: "#111827",
-              margin: "0 0 26px 0",
               letterSpacing: "-1px",
+              margin: "0 0 26px 0",
+              color: "#0f172a",
             }}
           >
             쉽고 빠르게
             <br />
-            유지보수 요청을 접수하는 서비스
-          </h2>
+            유지보수 요청을 접수하는
+            <br />
+            서비스
+          </h1>
 
           <p
             style={{
-              fontSize: "20px",
-              lineHeight: "1.7",
-              color: "#4b5563",
-              margin: "0 0 36px 0",
-              maxWidth: "760px",
+              fontSize: "17px",
+              lineHeight: "1.9",
+              color: "#475569",
+              marginBottom: "34px",
             }}
           >
             FixFlow는 시설, 장비, 환경 관련 문제를 간편하게 등록하고
-            관리할 수 있는 유지보수 요청 플랫폼입니다.
+            <br />
+            진행 상태를 확인할 수 있는 유지보수 요청 플랫폼입니다.
           </p>
 
-          <div style={{ display: "flex", gap: "16px" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "14px",
+              flexWrap: "wrap",
+              marginBottom: "28px",
+            }}
+          >
             <button
-              type="button"
               onClick={onGoCreate}
               style={{
-                border: "none",
                 backgroundColor: "#2563eb",
                 color: "#ffffff",
-                padding: "18px 28px",
+                border: "none",
                 borderRadius: "14px",
-                fontSize: "18px",
+                padding: "16px 24px",
+                fontSize: "16px",
                 fontWeight: "700",
                 cursor: "pointer",
+                boxShadow: "0 10px 24px rgba(37, 99, 235, 0.18)",
               }}
             >
-              {isLoggedIn ? "요청 등록하기" : "로그인 후 요청 등록"}
+              로그인 후 요청 등록
             </button>
 
             <button
-              type="button"
-              onClick={scrollToIntro}
+              onClick={moveToIntro}
               style={{
-                border: "1px solid #cbd5e1",
                 backgroundColor: "#ffffff",
                 color: "#2563eb",
-                padding: "18px 28px",
+                border: "1px solid #cbd5e1",
                 borderRadius: "14px",
-                fontSize: "18px",
+                padding: "16px 24px",
+                fontSize: "16px",
                 fontWeight: "700",
                 cursor: "pointer",
               }}
@@ -176,48 +195,203 @@ function LandingPage({ onGoLogin, onGoSignup, onGoCreate, isLoggedIn }) {
               서비스 보기
             </button>
           </div>
+
+          <div
+            style={{
+              display: "flex",
+              gap: "12px",
+              flexWrap: "wrap",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: "#ffffff",
+                border: "1px solid #e2e8f0",
+                borderRadius: "12px",
+                padding: "12px 16px",
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "#334155",
+              }}
+            >
+              빠른 요청 접수
+            </div>
+
+            <div
+              style={{
+                backgroundColor: "#ffffff",
+                border: "1px solid #e2e8f0",
+                borderRadius: "12px",
+                padding: "12px 16px",
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "#334155",
+              }}
+            >
+              처리 상태 확인
+            </div>
+
+            <div
+              style={{
+                backgroundColor: "#ffffff",
+                border: "1px solid #e2e8f0",
+                borderRadius: "12px",
+                padding: "12px 16px",
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "#334155",
+              }}
+            >
+              담당자 배정 관리
+            </div>
+          </div>
         </div>
 
+        {/* 오른쪽 카드 */}
         <div
           style={{
+            width: "390px",
             backgroundColor: "#f8fafc",
             borderRadius: "28px",
             padding: "26px",
-            boxShadow: "0 12px 30px rgba(15, 23, 42, 0.06)",
+            border: "1px solid #e2e8f0",
           }}
         >
-          <div style={statCardStyle}>
-            <p style={statLabelStyle}>오늘 접수</p>
-            <h3 style={statNumberStyle}>12건</h3>
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "22px",
+              padding: "24px",
+              marginBottom: "18px",
+              boxShadow: "0 8px 20px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "15px",
+                color: "#64748b",
+                marginBottom: "12px",
+              }}
+            >
+              오늘 접수
+            </div>
+            <div
+              style={{
+                fontSize: "36px",
+                fontWeight: "800",
+                color: "#0f172a",
+                marginBottom: "8px",
+              }}
+            >
+              12건
+            </div>
+            <div
+              style={{
+                fontSize: "14px",
+                color: "#94a3b8",
+              }}
+            >
+              오늘 새로 등록된 요청입니다.
+            </div>
           </div>
 
-          <div style={statCardStyle}>
-            <p style={statLabelStyle}>처리 진행</p>
-            <h3 style={statNumberStyle}>5건</h3>
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "22px",
+              padding: "24px",
+              marginBottom: "18px",
+              boxShadow: "0 8px 20px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "15px",
+                color: "#64748b",
+                marginBottom: "12px",
+              }}
+            >
+              처리 진행
+            </div>
+            <div
+              style={{
+                fontSize: "36px",
+                fontWeight: "800",
+                color: "#0f172a",
+                marginBottom: "8px",
+              }}
+            >
+              5건
+            </div>
+            <div
+              style={{
+                fontSize: "14px",
+                color: "#94a3b8",
+              }}
+            >
+              현재 담당자가 처리 중인 요청입니다.
+            </div>
           </div>
 
-          <div style={statCardStyle}>
-            <p style={statLabelStyle}>완료</p>
-            <h3 style={statNumberStyle}>21건</h3>
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "22px",
+              padding: "24px",
+              boxShadow: "0 8px 20px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "15px",
+                color: "#64748b",
+                marginBottom: "12px",
+              }}
+            >
+              완료
+            </div>
+            <div
+              style={{
+                fontSize: "36px",
+                fontWeight: "800",
+                color: "#0f172a",
+                marginBottom: "8px",
+              }}
+            >
+              21건
+            </div>
+            <div
+              style={{
+                fontSize: "14px",
+                color: "#94a3b8",
+              }}
+            >
+              처리가 완료된 요청 건수입니다.
+            </div>
           </div>
         </div>
       </section>
 
+      {/* 서비스 소개 */}
       <section
         id="service-intro"
         style={{
           maxWidth: "1200px",
           margin: "0 auto",
-          padding: "40px 24px 100px 24px",
-          textAlign: "center",
+          padding: "20px 32px 100px",
         }}
       >
         <h2
           style={{
-            fontSize: "52px",
+            fontSize: "40px",
             fontWeight: "800",
-            color: "#111827",
-            marginBottom: "24px",
+            textAlign: "center",
+            marginBottom: "16px",
+            letterSpacing: "-0.7px",
+            color: "#0f172a",
           }}
         >
           FixFlow 소개
@@ -225,47 +399,142 @@ function LandingPage({ onGoLogin, onGoSignup, onGoCreate, isLoggedIn }) {
 
         <p
           style={{
-            fontSize: "20px",
-            color: "#6b7280",
-            lineHeight: "1.8",
-            marginBottom: "56px",
+            textAlign: "center",
+            fontSize: "17px",
+            lineHeight: "1.9",
+            color: "#475569",
+            marginBottom: "42px",
           }}
         >
-          요청 등록부터 확인, 처리 상태 관리까지 한 곳에서 할 수 있게
-          도와주는 서비스입니다.
+          요청 등록부터 담당자 배정, 처리 완료 확인까지
+          <br />
+          한 화면에서 쉽고 빠르게 관리할 수 있습니다.
         </p>
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
             gap: "20px",
           }}
         >
-          <div style={featureCardStyle}>
-            <h3 style={featureTitleStyle}>간편한 요청 등록</h3>
-            <p style={featureTextStyle}>
-              제목, 카테고리, 장소, 내용을 입력해서
-              <br />
-              빠르게 요청을 등록할 수 있습니다.
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "20px",
+              padding: "28px",
+              boxShadow: "0 8px 20px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            <h3
+              style={{
+                fontSize: "20px",
+                marginBottom: "12px",
+                color: "#0f172a",
+              }}
+            >
+              요청 등록
+            </h3>
+            <p
+              style={{
+                fontSize: "15px",
+                color: "#64748b",
+                lineHeight: "1.8",
+                margin: 0,
+              }}
+            >
+              시설이나 장비 문제를 간단하게 등록할 수 있습니다.
             </p>
           </div>
 
-          <div style={featureCardStyle}>
-            <h3 style={featureTitleStyle}>내 요청 확인</h3>
-            <p style={featureTextStyle}>
-              내가 등록한 요청 목록을 보고
-              <br />
-              상세 내용까지 쉽게 확인할 수 있습니다.
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "20px",
+              padding: "28px",
+              boxShadow: "0 8px 20px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            <h3
+              style={{
+                fontSize: "20px",
+                marginBottom: "12px",
+                color: "#0f172a",
+              }}
+            >
+              처리 현황 확인
+            </h3>
+            <p
+              style={{
+                fontSize: "15px",
+                color: "#64748b",
+                lineHeight: "1.8",
+                margin: 0,
+              }}
+            >
+              접수, 진행 중, 완료 상태를 한눈에 확인할 수 있습니다.
             </p>
           </div>
 
-          <div style={featureCardStyle}>
-            <h3 style={featureTitleStyle}>처리 흐름 관리</h3>
-            <p style={featureTextStyle}>
-              접수 상태와 진행 흐름을 정리해서
-              <br />
-              보기 쉽게 관리할 수 있습니다.
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "20px",
+              padding: "28px",
+              boxShadow: "0 8px 20px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            <h3
+              style={{
+                fontSize: "20px",
+                marginBottom: "12px",
+                color: "#0f172a",
+              }}
+            >
+              담당자 배정
+            </h3>
+            <p
+              style={{
+                fontSize: "15px",
+                color: "#64748b",
+                lineHeight: "1.8",
+                margin: 0,
+              }}
+            >
+              작업 담당자를 지정하고 진행 내용을 관리할 수 있습니다.
+            </p>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "20px",
+              padding: "28px",
+              boxShadow: "0 8px 20px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            <h3
+              style={{
+                fontSize: "20px",
+                marginBottom: "12px",
+                color: "#0f172a",
+              }}
+            >
+              회원 기반 관리
+            </h3>
+            <p
+              style={{
+                fontSize: "15px",
+                color: "#64748b",
+                lineHeight: "1.8",
+                margin: 0,
+              }}
+            >
+              로그인한 사용자 기준으로 내 요청과 맡은 작업을 구분할 수 있습니다.
             </p>
           </div>
         </div>
@@ -273,59 +542,5 @@ function LandingPage({ onGoLogin, onGoSignup, onGoCreate, isLoggedIn }) {
     </div>
   );
 }
-
-const menuButtonStyle = {
-  border: "none",
-  background: "none",
-  cursor: "pointer",
-  fontSize: "18px",
-  color: "#111827",
-  padding: 0,
-};
-
-const statCardStyle = {
-  backgroundColor: "#ffffff",
-  border: "1px solid #e5e7eb",
-  borderRadius: "20px",
-  padding: "24px 20px",
-  marginBottom: "18px",
-  textAlign: "left",
-};
-
-const statLabelStyle = {
-  margin: "0 0 12px 0",
-  fontSize: "16px",
-  color: "#6b7280",
-};
-
-const statNumberStyle = {
-  margin: 0,
-  fontSize: "34px",
-  fontWeight: "800",
-  color: "#111827",
-};
-
-const featureCardStyle = {
-  backgroundColor: "#ffffff",
-  border: "1px solid #e5e7eb",
-  borderRadius: "22px",
-  padding: "28px 22px",
-  textAlign: "left",
-  minHeight: "180px",
-};
-
-const featureTitleStyle = {
-  margin: "0 0 16px 0",
-  fontSize: "28px",
-  fontWeight: "800",
-  color: "#111827",
-};
-
-const featureTextStyle = {
-  margin: 0,
-  fontSize: "17px",
-  lineHeight: "1.8",
-  color: "#6b7280",
-};
 
 export default LandingPage;

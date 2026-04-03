@@ -9,13 +9,37 @@ import org.apache.ibatis.annotations.Select;
 public interface UserMapper {
 
     @Insert("""
-        INSERT INTO users (username, password, name)
-        VALUES (#{username}, #{password}, #{name})
+        INSERT INTO users (
+            username,
+            password,
+            name,
+            nickname,
+            email,
+            phone_number,
+            role
+        )
+        VALUES (
+            #{username},
+            #{password},
+            #{name},
+            #{nickname},
+            #{email},
+            #{phoneNumber},
+            'user'
+        )
         """)
     void insertUser(UserSignupDto dto);
 
     @Select("""
-        SELECT id, username, password, name, role
+        SELECT
+            id,
+            username,
+            password,
+            name,
+            nickname,
+            email,
+            phone_number AS phoneNumber,
+            role
         FROM users
         WHERE username = #{username}
         """)
