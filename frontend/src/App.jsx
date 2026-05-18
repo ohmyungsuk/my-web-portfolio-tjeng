@@ -18,6 +18,8 @@ import CommunityPage from "./pages/CommunityPage";
 import ServiceIntroPage from "./pages/ServiceIntroPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import OAuthCallback from "./pages/OAuthCallback";
 import SupportPage from "./pages/SupportPage";
 import PolicyPage from "./pages/PolicyPage";
@@ -358,7 +360,13 @@ function App() {
     return <div style={{ minHeight: "100vh", background: "#fff" }} />;
   }
 
-  const authLayoutPages = ["/login", "/signup", "/oauth/callback"];
+  const authLayoutPages = [
+    "/login",
+    "/signup",
+    "/forgot-password",
+    "/reset-password",
+    "/oauth/callback",
+  ];
   const hideHeader = authLayoutPages.includes(location.pathname);
   const hideFooter =
     authLayoutPages.includes(location.pathname) || location.pathname === "/";
@@ -494,6 +502,9 @@ function App() {
             )
           }
         />
+
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
 
         <Route path="/oauth/callback" element={<OAuthCallback />} />
 

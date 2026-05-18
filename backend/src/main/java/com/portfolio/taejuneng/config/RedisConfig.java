@@ -2,6 +2,7 @@ package com.portfolio.taejuneng.config;
 
 import com.portfolio.taejuneng.service.NotificationSubscriber;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.MessageListener;
@@ -18,19 +19,19 @@ public class RedisConfig {
 
     public static final String NOTIFICATION_CHANNEL = "ddookddak-notification";
 
-    @Value("${spring.data.redis.host}")
+    @Value("${spring.data.redis.host:localhost}")
     private String redisHost;
 
-    @Value("${spring.data.redis.port}")
+    @Value("${spring.data.redis.port:6379}")
     private int redisPort;
 
-    @Value("${spring.data.redis.username:default}")
+    @Value("${spring.data.redis.username:}")
     private String redisUsername;
 
-    @Value("${spring.data.redis.password}")
+    @Value("${spring.data.redis.password:}")
     private String redisPassword;
 
-    @Value("${spring.data.redis.ssl.enabled:true}")
+    @Value("${spring.data.redis.ssl.enabled:false}")
     private boolean redisSslEnabled;
 
     @Bean
@@ -62,6 +63,7 @@ public class RedisConfig {
     }
 
     @Bean
+    @ConditionalOnProperty(name = "app.redis.listener.enabled", havingValue = "true")
     public RedisMessageListenerContainer redisMessageListenerContainer(
             RedisConnectionFactory connectionFactory,
             ChannelTopic notificationTopic,

@@ -336,6 +336,11 @@ function Login({ onSwitchToSignup, onLoginSuccess }) {
     WebkitTapHighlightColor: "transparent",
   };
 
+  const forgotPasswordWrapStyle = {
+    marginTop: "-2px",
+    textAlign: "right",
+  };
+
   return (
     <div style={pageStyle}>
       <div style={cardStyle}>
@@ -458,6 +463,18 @@ function Login({ onSwitchToSignup, onLoginSuccess }) {
                 autoComplete="current-password"
                 style={inputStyle}
               />
+            </div>
+
+            <div style={forgotPasswordWrapStyle}>
+              <HoverButton
+                onClick={() => navigate("/forgot-password")}
+                style={footerLinkStyle}
+                hoverStyle={{
+                  color: BRAND_HOVER,
+                }}
+              >
+                비밀번호 찾기
+              </HoverButton>
             </div>
 
             {errorMessage && <div style={errorBoxStyle}>{errorMessage}</div>}
