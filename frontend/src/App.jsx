@@ -285,15 +285,33 @@ function App() {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    } = supabase.auth.onAuthStateChange((event, newSession) => {
       syncLoginUser(newSession);
+
+      if (event === "PASSWORD_RECOVERY") {
+        navigate("/reset-password", { replace: true });
+      }
     });
 
     return () => {
       mounted = false;
       subscription.unsubscribe();
     };
-  }, []);
+  }, [navigate]);
+
+  useEffect(() => {
+    if (!authReady) return;
+    if (typeof window === "undefined") return;
+
+    const hash = window.location.hash || "";
+    const search = window.location.search || "";
+    const hasRecoveryToken =
+      hash.includes("type=recovery") || search.includes("type=recovery");
+
+    if (hasRecoveryToken && location.pathname !== "/reset-password") {
+      navigate("/reset-password", { replace: true });
+    }
+  }, [authReady, location.pathname, navigate]);
 
   useEffect(() => {
     if (!authReady) return;
